@@ -173,7 +173,7 @@ const Chart = () => {
           variant={active === index ? "contained" : "text"}
           onClick={(event) => handleClick(event, index)}
         >
-          <Typography sx={{ fontSize: { xs: "10px", sm: "15px" } }}>
+          <Typography sx={{ fontSize: { xs: "9px", sm: "15px" } }}>
             {each}
           </Typography>
         </Button>
