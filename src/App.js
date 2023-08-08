@@ -42,7 +42,7 @@ function App() {
         container
         rowGap={4}
         sx={{
-          padding: { xs: "100px 10px 10px", sm: "100px 25px 25px", md: "100px 30px 30px" },
+          padding: { xs: "100px 10px 0", sm: "100px 25px 0" },
         }}
       >
         <NavBar />

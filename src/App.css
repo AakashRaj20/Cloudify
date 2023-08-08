@@ -9,9 +9,39 @@ html {
   filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
 }
 
-.speedometer{
-    max-width: 500px;
-    width: 100%;
-    height: 100%;
-    max-height: 300px;
+.speedometer {
+  max-width: 500px;
+  width: 100%;
+  height: 100%;
+  max-height: 300px;
+}
+
+.custom-icon-container {
+  display: flex;
+  width: 170px;
+  height: 40px;
+  align-items: center;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: #518554;
+}
+
+.custom-icon-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  textalign: justify;
+  padding: 0 5px;
+}
+
+.custom-icon-image {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.custom-icon-name-div {
+  display: flex;
+}
+
+.leaflet-popup-content-wrapper {
+    background-color: #1B1A1D;
 }

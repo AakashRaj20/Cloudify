@@ -1,8 +1,9 @@
 import { useEffect, useCallback } from "react";
+import ReactDOMServer from "react-dom/server";
 import { cityData50 } from "../slice/citiesDataSlice";
 import { cityData } from "../slice/inputSlice";
 import { useSelector } from "react-redux";
-import { Typography, Box, Grid } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 import { Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import { useMap } from "react-leaflet";
@@ -27,22 +28,25 @@ const Markers = () => {
     changeLocation();
   }, [selectedCity, changeLocation]);
 
-  const icon = (icon, name) => {
-    return (
-      <Grid
-        container
-        className="custom-icon"
-        sx={{ background: "transparent" }}
-      >
-        <Grid item xs={12} sm={12}>
-          <img src={getWeatherIconUrl(icon)} alt="icon" />
-        </Grid>
-        <Grid item xs={12} sm={12}>
-          <Typography>{name}</Typography>
-        </Grid>
-      </Grid>
-    );
-  }
+  const icon = (iconCode, name) => {
+    return L.divIcon({
+      className: "custom-icon",
+      html: ReactDOMServer.renderToString(
+        <div className="custom-icon-container">
+          <div className="custom-icon-image">
+            <img src={getWeatherIconUrl(iconCode)} alt="icon" />
+          </div>
+          <div className="custom-icon-name-div">
+            <p className="custom-icon-name">{name}</p>
+          </div>
+        </div>
+      ),
+      iconAnchor: [16, 32],
+      iconSize: [40, 40],
+      iconPosition: "top",
+      popupAnchor: [0, -32],
+    });
+  };
   return (
     <>
       {cities &&
@@ -51,23 +55,10 @@ const Markers = () => {
             eventHandlers={{ changeLocation }}
             key={city.id}
             position={[city.coord.lat, city.coord.lon]}
-            icon={L.divIcon({
-              className: "custom-icon",
-              iconUrl: icon(city.weather[0].icon, city.name),
-              iconAnchor: [16, 32],
-              iconSize: [40, 40],
-              iconPosition: "top",
-              popupAnchor: [0, -32],
-            })}
+            icon={icon(city.weather[0].icon, city.name)}
           >
-            <Popup>
-              <Box>
-                <Typography
-                  variant="h6"
-                  sx={{ fontWeight: "bold", lineHeight: "30px" }}
-                >
-                  {city.name}
-                </Typography>
+            <Popup className="custom-popup">
+              <Box sx={{ width: "100%", color: "white" }}>
                 <Typography sx={{ lineHeight: "10px" }}>
                   Temperature: {city.main.temp} °C
                 </Typography>
