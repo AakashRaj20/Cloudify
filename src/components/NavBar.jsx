@@ -19,11 +19,9 @@ import {
   Toolbar,
   Box,
   AppBar,
-  Button,
 } from "@mui/material";
 import Logo from "../Logo";
 
-const navItems = ["About", "Contact"];
 const drawerWidth = 230;
 const NavBar = (props) => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -57,10 +55,7 @@ const NavBar = (props) => {
               flexDirection: "column",
             }}
           >
-            <Link
-              color="inherit"
-              underline="none"
-            >
+            <Link color="inherit" underline="none">
               <ListItemText primary="About" />
             </Link>
             <Link color="inherit" underline="none" href="#footer">
@@ -99,7 +94,13 @@ const NavBar = (props) => {
       <AppBar position="fixed" component="nav">
         <Toolbar>
           <Grid item xs={12} sm={12} container nowrap>
-            <Grid item xs={2} sx={{ display: { xs: "flex", sm: "none" } }}>
+            <Grid
+              item
+              xs={2}
+              sx={{
+                display: { xs: "flex", sm: "none" },
+              }}
+            >
               <IconButton onClick={handleDrawerToggle}>
                 <MenuIcon />
               </IconButton>

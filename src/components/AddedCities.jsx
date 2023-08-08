@@ -60,10 +60,6 @@ const AddedCities = () => {
   const handleDeleteCity = (index) => {
     dispatch(removeCity({ index: index }));
   };
-  const disabledStyle = {
-    display: "flex",
-    gap: "0 20px"
-  }
 
   const cityDiv = showCity.map((each, index) => {
     return (

@@ -1,30 +1,31 @@
 import { Grid, Box, Typography, Tooltip } from "@mui/material";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { filterData } from "../slice/inputSlice";
-import { weatherData, cityData } from "../slice/inputSlice";
+import { weatherData, cityData, keyType } from "../slice/inputSlice";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
-import { keyType } from "../slice/inputSlice";
 import DataBtn from "./DataBtn";
 import { chartData } from "../slice/chartSlice";
+import { filterData } from "../slice/inputSlice";
 
 const DataCard = () => {
   const dispatch = useDispatch();
   const currData = useSelector(cityData);
   const next7DaysData = useSelector(chartData);
-
-  // useEffect(() => {
-  //   dispatch(filterData({ info: currData. }));
-  // }, [dispatch, currData])
-
-  const data = useSelector(weatherData);
   const key = useSelector(keyType);
+  const data = useSelector(weatherData);
+
+  //console.log(dispatch(filterData()));
+  useEffect(() => {
+    currData &&
+      (key === 0 || key === 1) &&
+      dispatch(filterData({ info: currData.forecast.forecastday[key].hour }));
+  },[currData, dispatch]);
 
   const date = new Date();
 
   let hours = date.getHours();
-  const filterData = key === 0 ? data?.slice(hours) : data;
+  const finalData = key === 0 ? data?.slice(hours) : data;
   hours = hours > 12 ? hours - 12 : hours;
   hours = hours < 10 ? "0" + hours : hours;
 
@@ -42,14 +43,13 @@ const DataCard = () => {
         slides: { perView: 4.5, spacing: 7 },
       },
       "(min-width: 576px) and (max-width: 767.98px)": {
-        slides: { perView: 5.5, spacing: 5, number: key },
+        slides: { perView: 7.5, spacing: 5 },
       },
       "(min-width: 768px) and (max-width: 991.98px)": {
-        slides: { perView: 7.5, spacing: 5, number: key },
+        slides: { perView: 7.5, spacing: 5 },
       },
       "(min-width: 1200px)": {
-        //disabled: weatherData.length < 5 ? true : false,
-        slides: { perView: 11.5, spacing: 5 },
+        slides: { perView: 11.5, spacing: 3 },
       },
     },
     slides: {
@@ -64,6 +64,7 @@ const DataCard = () => {
       container
       justifyContent="center"
       alignItems="center"
+      rowGap={1.7}
       sx={{ padding: "20px" }}
     >
       <Grid item xs={6} sm={2}>
@@ -192,8 +193,8 @@ const DataCard = () => {
     </Grid>
   );
   const forecastCard =
-    filterData &&
-    filterData.map((each, index) => {
+    finalData &&
+    finalData.map((each, index) => {
       return (
         <Box key={index} className="keen-slider__slide">
           <Box

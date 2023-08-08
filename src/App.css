@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 .leaflet-layer,
 .leaflet-control-zoom-in,
 .leaflet-control-zoom-out,

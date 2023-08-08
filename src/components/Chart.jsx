@@ -25,7 +25,6 @@ const Chart = () => {
     id?.locations.length > 0 &&
       selectedCity &&
       dispatch(fetchChartData({ id: id?.locations[0].id }));
-    console.log("called");
   }, [selectedCity, dispatch, id]);
 
   const btn = ["Humidity", "Wind", "Percipitation", "UV Index"];

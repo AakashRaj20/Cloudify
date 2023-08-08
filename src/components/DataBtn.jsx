@@ -1,16 +1,13 @@
-import { useState } from "react";
 import { cityData } from "../slice/inputSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Grid, Typography } from "@mui/material";
 import { showData, filterData } from "../slice/inputSlice";
-import { chartData } from "../slice/chartSlice";
+import { keyType } from "../slice/inputSlice";
 
 const DataBtn = () => {
-  const [btnState, setBtnState] = useState(0);
-
+  const btnState = useSelector(keyType);
   const dispatch = useDispatch();
   const data = useSelector(cityData);
-  const next7DaysData = useSelector(chartData);
 
   const activeSx = {
     color: "#FFF",
@@ -32,7 +29,7 @@ const DataBtn = () => {
 
   const handleClick = (event, key) => {
     dispatch(showData({ type: key }));
-    setBtnState(key);
+    //setBtnState(key);
     if(key === 0 || key === 1){
         dispatch(filterData({ info: data.forecast.forecastday[key].hour  }));
     }
