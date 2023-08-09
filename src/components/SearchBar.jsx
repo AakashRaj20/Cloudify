@@ -14,13 +14,18 @@ const SearchBar = () => {
     dispatch(fetchCityData({city : loc}));
     dispatch(fetchCityId({city : loc}));
   };
+
+  const handleClick = (event) => {
+    dispatch(fetchCityData({ city: loc }));
+    dispatch(fetchCityId({ city: loc }));
+  };
   const handleChange = (event) => {
     setLoc(event.target.value);
   };
   //console.log(loc);
   return (
     <Grid container>
-      <Grid item xs={12} sm={7} md={4}> 
+      <Grid item xs={12} sm={7} md={4}>
         <form onSubmit={handleSubmit} style={{ width: "100%" }}>
           <TextField
             value={loc}
@@ -31,7 +36,7 @@ const SearchBar = () => {
             onChange={handleChange}
             InputProps={{
               endAdornment: (
-                <InputAdornment position="start">
+                <InputAdornment position="start" onClick={ handleClick}>
                   <SearchIcon />
                 </InputAdornment>
               ),
