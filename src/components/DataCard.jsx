@@ -20,7 +20,7 @@ const DataCard = () => {
     currData &&
       (key === 0 || key === 1) &&
       dispatch(filterData({ info: currData.forecast.forecastday[key].hour }));
-  },[currData, dispatch]);
+  }, [currData, dispatch, key]);
 
   const date = new Date();
 
@@ -35,29 +35,45 @@ const DataCard = () => {
     return daysOfWeek[dateObj.getDay()];
   };
 
-  const [sliderRef] = useKeenSlider({
-    renderMode: performance,
-    mode: "free",
-    breakpoints: {
-      "(max-width: 575.98px)": {
-        slides: { perView: 4.5, spacing: 7 },
+  const ResizePlugin = (slider) => {
+    const observer = new ResizeObserver(function () {
+      slider.update();
+    });
+
+    slider.on("created", () => {
+      observer.observe(slider.container);
+    });
+    slider.on("destroyed", () => {
+      observer.unobserve(slider.container);
+    });
+  };
+
+  const [sliderRef] = useKeenSlider(
+    {
+      renderMode: performance,
+      mode: "free",
+      breakpoints: {
+        "(max-width: 575.98px)": {
+          slides: { perView: 4.5, spacing: 7 },
+        },
+        "(min-width: 576px) and (max-width: 767.98px)": {
+          slides: { perView: 7.5, spacing: 5 },
+        },
+        "(min-width: 768px) and (max-width: 991.98px)": {
+          slides: { perView: 7.5, spacing: 5 },
+        },
+        "(min-width: 1200px)": {
+          slides: { perView: 11.5, spacing: 3 },
+        },
       },
-      "(min-width: 576px) and (max-width: 767.98px)": {
-        slides: { perView: 7.5, spacing: 5 },
-      },
-      "(min-width: 768px) and (max-width: 991.98px)": {
-        slides: { perView: 7.5, spacing: 5 },
-      },
-      "(min-width: 1200px)": {
-        slides: { perView: 11.5, spacing: 3 },
+      slides: {
+        perView: 9.5,
+        number: key,
+        spacing: 5,
       },
     },
-    slides: {
-      perView: 9.5,
-      number: key,
-      spacing: 5,
-    },
-  });
+    [ResizePlugin]
+  );
 
   const mainData = currData && (
     <Grid

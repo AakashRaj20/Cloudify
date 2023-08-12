@@ -1,6 +1,6 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+import storageSession from "redux-persist/lib/storage/session";
 import thunk from "redux-thunk";
 import inputSlice from "../slice/inputSlice";
 import citiesDataSlice from "../slice/citiesDataSlice";
@@ -10,7 +10,7 @@ import addCitySlice from "../slice/addCitySlice";
 
 const persistConfig = {
   key: "root",
-  storage,
+  storage: storageSession,
 };
 
 const rootReducer = combineReducers({

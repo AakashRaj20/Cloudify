@@ -35,15 +35,13 @@ export const addCitySlice = createSlice({
   name: "addCity",
   initialState,
   reducers: {
+    addCityFromDb: (state, action) => {
+      const { data } = action.payload;
+      state.citiesArray = data;
+    },
     addCity: (state, action) => {
-      const { icon, cityName, country, temp, text} = action.payload;
-      state.citiesArray.unshift({
-        icon,
-        cityName,
-        country,
-        temp,
-        text,
-      });
+      const {icon, name, country, temp, text} = action.payload;
+      state.citiesArray.unshift({icon, name, country, temp, text});
     },
     removeCity: (state, action) => {
       const { index } = action.payload;
@@ -62,7 +60,7 @@ export const addCitySlice = createSlice({
 });
 
 export default addCitySlice.reducer;
-export const {addCity, removeCity} = addCitySlice.actions;
+export const { addCityFromDb, removeCity, addCity } = addCitySlice.actions;
 export const isLoading = (state) => state.addCity.isLoading;
 export const addCityData = (state) => state.addCity.addCityData;
 export const citiesArray = (state) => state.addCity.citiesArray;

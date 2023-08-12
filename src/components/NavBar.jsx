@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import Avatar from "@mui/material/Avatar";
 import Logout from "@mui/icons-material/Logout";
+import LoginIcon from "@mui/icons-material/Login";
 import Link from "@mui/material/Link";
 import {
   Grid,
@@ -21,6 +22,8 @@ import {
   AppBar,
 } from "@mui/material";
 import Logo from "../Logo";
+import { auth, googleAuthProvider } from "../config/firebase";
+import { signInWithPopup, signOut } from "firebase/auth";
 
 const drawerWidth = 230;
 const NavBar = (props) => {
@@ -28,6 +31,8 @@ const NavBar = (props) => {
   const { window } = props;
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const [loading, setLoading] = useState(true);
+  const [photoURL, setPhotoURL] = useState("");
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -38,6 +43,38 @@ const NavBar = (props) => {
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
+
+  const handleSignIn = async () => {
+    try {
+      await signInWithPopup(auth, googleAuthProvider);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleSignOut = async () => {
+    try {
+      signOut(auth);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setPhotoURL(user.photoURL);
+        setLoading(false);
+      }else{
+        setPhotoURL("");
+        setLoading(false);
+      }
+    });
+
+    return () => {
+      unsubscribe(); // Cleanup the listener when the component unmounts
+    };
+  }, []);
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
@@ -82,9 +119,17 @@ const NavBar = (props) => {
     >
       <MenuItem onClick={handleClose}>
         <ListItemIcon>
-          <Logout fontSize="small" />
+          {!loading && photoURL ? (
+            <Logout fontSize="small" onClick={handleSignOut} />
+          ) : (
+            <LoginIcon fontSize="small" onClick={handleSignIn} />
+          )}
         </ListItemIcon>
-        <Typography>Logout</Typography>
+        {!loading && photoURL ? (
+          <Typography onClick={handleSignOut}>Logout</Typography>
+        ) : (
+          <Typography onClick={handleSignIn}>Login</Typography>
+        )}
       </MenuItem>
     </Menu>
   );
@@ -160,7 +205,11 @@ const NavBar = (props) => {
                   aria-expanded={open ? "true" : undefined}
                   onClick={handleClick}
                 >
-                  <Avatar />
+                  {!loading && photoURL ? (
+                    <Avatar alt="" src={photoURL} />
+                  ) : (
+                    <Avatar />
+                  )}
                 </IconButton>
                 {menu}
               </Box>

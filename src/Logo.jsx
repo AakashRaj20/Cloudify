@@ -8,7 +8,7 @@ const Logo = () => {
         xmlns="http://www.w3.org/2000/svg"
         version="1.1"
         xmlnsXlink="http://www.w3.org/1999/xlink"
-        xmlnsSvgjs="http://svgjs.dev/svgjs"
+        xmlnssvgjs="http://svgjs.dev/svgjs"
         width="140"
         height="50"
         viewBox="0 0 2000 469"
@@ -65,7 +65,7 @@ const Logo = () => {
                                     data-palette-color="#48ac7f"
                                   >
                                     <g
-                                      class="wordmark-text-0"
+                                      className="wordmark-text-0"
                                       data-fill-palette-color="primary"
                                       id="text-0"
                                     >
@@ -98,7 +98,7 @@ const Logo = () => {
                             y="0"
                             height="123.07208551241094"
                             width="108.96275401887596"
-                            class="icon-icon-0"
+                            className="icon-icon-0"
                             data-fill-palette-color="accent"
                             id="icon-0"
                           >
