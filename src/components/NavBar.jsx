@@ -122,7 +122,7 @@ const NavBar = (props) => {
             </Button>
           )}
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} sx={{ justifyContent: 'center', display: 'flex' }}>
           <About />
         </Grid>
         <Grid item xs={12}>

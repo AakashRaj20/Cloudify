@@ -63,7 +63,7 @@ const About = () => {
     }
   }, [open]);
   return (
-    <Box>
+    <Box sx={{ display: "flex", gap: "20px 0 0 0" }}>
       <Button
         onClick={handleClickOpen("paper")}
         sx={{
@@ -102,15 +102,10 @@ const About = () => {
           sx={{
             display: "flex",
             flexDirection: "column",
-            justifyContent: "center",
+            justifyContent: "start",
             alignItems: "center",
             gap: "10px 0",
-            "@media (max-width: 380px)": {
-              paddingTop: "310px", 
-            },
-            "@media (min-width: 381px) and (max-width: 600px)": {
-              paddingTop: "120px", 
-            },
+            WebkitOverflowScrolling: "touch",
           }}
         >
           <Box
@@ -120,11 +115,14 @@ const About = () => {
               justifyContent: "center",
               alignItems: "center",
               paddingTop: { xs: "20px", sm: "0" },
-              maxWidth: "210px",
             }}
           >
             <img
-              style={{ width: "100%", height: "100%" }}
+              style={{
+                maxWidth: "210px",
+                width: "100%",
+                alignSelf: "center",
+              }}
               src={About1}
               alt=""
             />
