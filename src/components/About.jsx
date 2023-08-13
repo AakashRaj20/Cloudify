@@ -105,11 +105,26 @@ const About = () => {
             justifyContent: "center",
             alignItems: "center",
             gap: "10px 0",
+            "@media (max-width: 380px)": {
+              paddingTop: "310px", 
+            },
+            "@media (min-width: 381px) and (max-width: 600px)": {
+              paddingTop: "120px", 
+            },
           }}
         >
-          <Box sx={{ margin: { xs: '160px 0 0 0', sm: 'auto' } }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              paddingTop: { xs: "20px", sm: "0" },
+              maxWidth: "210px",
+            }}
+          >
             <img
-              style={{ maxWidth: "210px", width: "100%" }}
+              style={{ width: "100%", height: "100%" }}
               src={About1}
               alt=""
             />
@@ -118,7 +133,12 @@ const About = () => {
             id="scroll-dialog-description"
             ref={descriptionElementRef}
             tabIndex={-1}
-            sx={{ display: "flex", flexDirection: "column", gap: "10px" }}
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "10px",
+              color: "white",
+            }}
           >
             <Typography sx={{ fontSize: "20px", fontWeight: "bold" }}>
               Greetings! 👋
@@ -145,7 +165,9 @@ const About = () => {
               collaborate to create something remarkable!
             </Typography>
             <Typography>Looking forward to connecting, </Typography>
-            <Typography>Aakash Raj</Typography>
+            <Typography sx={{ fontWeight: "bold", fontSize: "20px" }}>
+              Aakash Raj
+            </Typography>
           </DialogContentText>
         </DialogContent>
         <DialogActions>

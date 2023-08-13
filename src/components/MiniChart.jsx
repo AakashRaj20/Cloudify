@@ -5,7 +5,7 @@ import { fetchAirQualityData } from "../slice/airQualitySlice";
 import { airQualityData } from "../slice/airQualitySlice";
 import { cityData } from "../slice/inputSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Button, Grid, Typography, Skeleton } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 
 const MiniChart = () => {
   const dispatch = useDispatch();
