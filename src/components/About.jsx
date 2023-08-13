@@ -102,8 +102,8 @@ const About = () => {
           sx={{
             display: "flex",
             flexDirection: "column",
-            justifyContent: "start",
-            alignItems: "start",
+            justifyContent: { xs: "start", sm: "center" },
+            alignItems: { xs: "start", sm: "center" },
             gap: "10px 0",
             WebkitOverflowScrolling: "touch",
           }}
@@ -114,7 +114,6 @@ const About = () => {
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
-              paddingTop: { xs: "20px", sm: "0" },
             }}
           >
             <img
