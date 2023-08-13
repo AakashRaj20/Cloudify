@@ -103,7 +103,7 @@ const About = () => {
             display: "flex",
             flexDirection: "column",
             justifyContent: "start",
-            alignItems: "center",
+            alignItems: "start",
             gap: "10px 0",
             WebkitOverflowScrolling: "touch",
           }}
