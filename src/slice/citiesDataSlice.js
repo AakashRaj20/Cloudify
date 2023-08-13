@@ -4,7 +4,7 @@ import axios from "axios";
 export const fetch50CityData = createAsyncThunk(
   "content/fetch50CityData",
   async ({lon, lat}) => {
-    const API_KEY = "f5fd57da2dce418e85716398f8c4d58f"; // Replace with your actual OpenWeatherMap API key
+    const API_KEY =  process.env.REACT_APP_CITIES_SLICE; 
     const API_URL = "https://api.openweathermap.org/data/2.5/find?";
     const params = {
       lat: lat,

@@ -1,4 +1,4 @@
-import { Grid, Box, Typography, Tooltip } from "@mui/material";
+import { Grid, Box, Typography, Tooltip, Skeleton } from "@mui/material";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { weatherData, cityData, keyType } from "../slice/inputSlice";
@@ -6,7 +6,7 @@ import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import DataBtn from "./DataBtn";
 import { chartData } from "../slice/chartSlice";
-import { filterData } from "../slice/inputSlice";
+import { filterData, isLoading } from "../slice/inputSlice";
 
 const DataCard = () => {
   const dispatch = useDispatch();
@@ -14,8 +14,8 @@ const DataCard = () => {
   const next7DaysData = useSelector(chartData);
   const key = useSelector(keyType);
   const data = useSelector(weatherData);
+  const loading = useSelector(isLoading);
 
-  //console.log(dispatch(filterData()));
   useEffect(() => {
     currData &&
       (key === 0 || key === 1) &&
@@ -340,37 +340,41 @@ const DataCard = () => {
       justifyContent="center"
       alignItems="center"
     >
-      <Box
-        sx={{
-          background: "#1B1A1D",
-          width: "100%",
-          borderRadius: "25px",
-        }}
-      >
-        <Grid
-          conatiner
-          justifyContent="center"
-          alignItems="center"
-          sx={{ textAlign: "center" }}
+      {loading ? (
+        <Skeleton variant="rectangular" sx={{ width: '100%', borderRadius: '25px', height: '100%' }} />
+      ) : (
+        <Box
+          sx={{
+            background: "#1B1A1D",
+            width: "100%",
+            borderRadius: "25px",
+          }}
         >
-          <Grid item xs={12} sm={12}>
-            {mainData}
-          </Grid>
           <Grid
-            item
-            xs={12}
-            sm={12}
-            sx={{ textAlign: "justify", padding: "10px 20px" }}
+            conatiner
+            justifyContent="center"
+            alignItems="center"
+            sx={{ textAlign: "center" }}
           >
-            <DataBtn />
+            <Grid item xs={12} sm={12}>
+              {mainData}
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              sx={{ textAlign: "justify", padding: "10px 20px" }}
+            >
+              <DataBtn />
+            </Grid>
+            <Grid item xs={12} sm={12} sx={{ padding: "0 20px 20px" }}>
+              <Box ref={sliderRef} className="keen-slider">
+                {key === 2 ? next7DaysCard : forecastCard}
+              </Box>
+            </Grid>
           </Grid>
-          <Grid item xs={12} sm={12} sx={{ padding: "0 20px 20px" }}>
-            <Box ref={sliderRef} className="keen-slider">
-              {key === 2 ? next7DaysCard : forecastCard}
-            </Box>
-          </Grid>
-        </Grid>
-      </Box>
+        </Box>
+      )}
     </Grid>
   );
 };

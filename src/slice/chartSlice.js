@@ -15,7 +15,7 @@ export const fetchChartData = createAsyncThunk(
         dataset: "full",
       },
       headers: {
-        "X-RapidAPI-Key": "a8aa97fe9emshe8587b9239550f4p185925jsnfae7ba7ab064",
+        "X-RapidAPI-Key": process.env.REACT_APP_CHART_SLICE,
         "X-RapidAPI-Host": "foreca-weather.p.rapidapi.com",
       },
     };
@@ -38,7 +38,7 @@ export const fetchCityId = createAsyncThunk(
         lang: "en",
       },
       headers: {
-        "X-RapidAPI-Key": "a8aa97fe9emshe8587b9239550f4p185925jsnfae7ba7ab064",
+        "X-RapidAPI-Key": process.env.REACT_APP_CHART_SLICE,
         "X-RapidAPI-Host": "foreca-weather.p.rapidapi.com",
       },
     };

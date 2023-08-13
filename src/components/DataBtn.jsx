@@ -29,15 +29,12 @@ const DataBtn = () => {
 
   const handleClick = (event, key) => {
     dispatch(showData({ type: key }));
-    //setBtnState(key);
     if(key === 0 || key === 1){
         dispatch(filterData({ info: data.forecast.forecastday[key].hour  }));
     }
   };
 
   const buttons = ["Today", "Tommorow", "Next 7 days"];
-
-  console.log(data);
 
   return (
     <Grid xs={12} sm={12} container>

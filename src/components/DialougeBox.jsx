@@ -1,13 +1,16 @@
-import { useCallback, useEffect, useState } from "react";
-import { Fab, Box } from "@mui/material";
+import { useEffect, useState } from "react";
+import {
+  Fab,
+  Box,
+  Button,
+  TextField,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import { fetchAddCity } from "../slice/addCitySlice";
 import { useDispatch, useSelector } from "react-redux";
 import { addCityData } from "../slice/addCitySlice";
@@ -25,7 +28,7 @@ const DialougeBox = () => {
   const [loading, setLoading] = useState(true);
   const [userId, setUserId] = useState("");
   const [dbCollectionRef, setDbCollectionRef] = useState(null);
-
+  
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -97,11 +100,20 @@ const DialougeBox = () => {
   };
 
   return (
-    <Box sx={{ borderRadius: "25px", background: "#1B1A1D" }}>
+    <Box>
       <Fab color="primary" aria-label="add" onClick={handleClickOpen}>
         <AddIcon />
       </Fab>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog
+        PaperProps={{
+          sx: {
+            borderRadius: "17px",
+            background: "#1B1A1D",
+          },
+        }}
+        open={open}
+        onClose={handleClose}
+      >
         <DialogTitle>World Forecast</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -119,12 +131,14 @@ const DialougeBox = () => {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
+          <Button sx={{ color: "white" }} onClick={handleClose}>
+            Cancel
+          </Button>
           <Button
+            sx={{ color: "white" }}
             onClick={() => {
               handleAddCity();
               handleClose();
-              //addCityToDb();
             }}
           >
             Add

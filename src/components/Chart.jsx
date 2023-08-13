@@ -1,4 +1,4 @@
-import { Grid, Typography, Box, Button } from "@mui/material";
+import { Grid, Typography, Box, Button, Skeleton } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import {
   CartesianGrid,
@@ -11,7 +11,7 @@ import {
 } from "recharts";
 import { cityId } from "../slice/chartSlice";
 import { cityData } from "../slice/inputSlice";
-import { fetchChartData } from "../slice/chartSlice";
+import { fetchChartData, isLoading } from "../slice/chartSlice";
 import { chartData } from "../slice/chartSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -20,6 +20,7 @@ const Chart = () => {
   const selectedCity = useSelector(cityData);
   const data = useSelector(chartData);
   const id = useSelector(cityId);
+  const loading = useSelector(isLoading);
 
   useEffect(() => {
     id?.locations.length > 0 &&
@@ -219,60 +220,67 @@ const Chart = () => {
       rowGap={{ xs: 5, sm: 3 }}
       sx={{ padding: { sm: "0 0px", xs: "0 0 5px 0", md: "0 30px 0 0" } }}
     >
-      <Box
-        sx={{
-          width: "100%",
-          borderRadius: "25px",
-          background: "#1B1A1D",
-        }}
-      >
-        <Grid container>
-          <Grid item xs={12} sm={12} md={6}>
-            <Typography
-              variant="h3"
-              sx={{
-                textAlign: "justify",
-                padding: { sm: "10px 50px", xs: "20px" },
-              }}
-            >
-              Overview
-            </Typography>
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            sm={12}
-            md={6}
-            sx={{
-              display: "flex",
-              justifyContent: {
-                xs: "flex-start",
-                sm: "flex-Start",
-                md: "center",
-              },
-              padding: { sm: "0 50px", xs: "0 20px" },
-            }}
-          >
+      {loading ? (
+        <Skeleton
+          variant="rectangular"
+          sx={{ width: "100%", borderRadius: "25px", height: "100%" }}
+        />
+      ) : (
+        <Box
+          sx={{
+            width: "100%",
+            borderRadius: "25px",
+            background: "#1B1A1D",
+          }}
+        >
+          <Grid container>
+            <Grid item xs={12} sm={12} md={6}>
+              <Typography
+                variant="h3"
+                sx={{
+                  textAlign: "justify",
+                  padding: { sm: "10px 50px", xs: "20px" },
+                }}
+              >
+                Overview
+              </Typography>
+            </Grid>
             <Grid
               item
-              container
+              xs={12}
+              sm={12}
+              md={6}
               sx={{
-                margin: { sm: "25px 5px", xs: "0 0 20px 0" },
-                alignItems: "center",
-                maxWidth: "500px",
-                width: "100%",
-                borderRadius: "50px",
-                background: "#101014",
+                display: "flex",
+                justifyContent: {
+                  xs: "flex-start",
+                  sm: "flex-Start",
+                  md: "center",
+                },
+                padding: { sm: "0 50px", xs: "0 20px" },
               }}
             >
-              {buttons}
+              <Grid
+                item
+                container
+                sx={{
+                  margin: { sm: "25px 5px", xs: "0 0 20px 0" },
+                  alignItems: "center",
+                  maxWidth: "500px",
+                  width: "100%",
+                  borderRadius: "50px",
+                  background: "#101014",
+                }}
+              >
+                {buttons}
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
-        <Grid item xs={12} sm={12}>
-          {areaChart}
-        </Grid>
-      </Box>
+          <Grid item xs={12} sm={12}>
+            {areaChart}
+          </Grid>
+        </Box>
+      )}
     </Grid>
   );
 };

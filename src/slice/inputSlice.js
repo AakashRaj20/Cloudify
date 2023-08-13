@@ -12,7 +12,7 @@ export const fetchCityData = createAsyncThunk(
         days: "3",
       },
       headers: {
-        "X-RapidAPI-Key": "a8aa97fe9emshe8587b9239550f4p185925jsnfae7ba7ab064",
+        "X-RapidAPI-Key": process.env.REACT_APP_INPUT_SLICE,
         "X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com",
       },
     };

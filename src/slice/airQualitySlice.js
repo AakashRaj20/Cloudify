@@ -8,14 +8,13 @@ const options = {
   url: "https://air-quality-by-api-ninjas.p.rapidapi.com/v1/airquality",
   params: { city: city },
   headers: {
-    "X-RapidAPI-Key": "03ea7d33d0msh2ddcb3b26528cb1p1ea52ajsnf815c18ed655",
+    "X-RapidAPI-Key": process.env.REACT_APP_AIR_QUALITY_SLICE,
     "X-RapidAPI-Host": "air-quality-by-api-ninjas.p.rapidapi.com",
   },
 };
 
 try {
   const response = await axios.request(options);
-  console.log(response.data);
   return response.data;
 } catch (error) {
   console.error(error);

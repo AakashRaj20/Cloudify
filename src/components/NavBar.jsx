@@ -7,23 +7,20 @@ import Link from "@mui/material/Link";
 import {
   Grid,
   Divider,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
   Drawer,
   Menu,
   MenuItem,
-  ListItemIcon,
   Typography,
   IconButton,
   Toolbar,
   Box,
   AppBar,
+  Button,
 } from "@mui/material";
 import Logo from "../Logo";
 import { auth, googleAuthProvider } from "../config/firebase";
 import { signInWithPopup, signOut } from "firebase/auth";
+import About from "./About";
 
 const drawerWidth = 230;
 const NavBar = (props) => {
@@ -33,6 +30,7 @@ const NavBar = (props) => {
   const open = Boolean(anchorEl);
   const [loading, setLoading] = useState(true);
   const [photoURL, setPhotoURL] = useState("");
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -65,7 +63,7 @@ const NavBar = (props) => {
       if (user) {
         setPhotoURL(user.photoURL);
         setLoading(false);
-      }else{
+      } else {
         setPhotoURL("");
         setLoading(false);
       }
@@ -78,29 +76,70 @@ const NavBar = (props) => {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <List>
-        <IconButton>
-          <Logo />
-        </IconButton>
-        <Divider />
-        <ListItem disablePadding>
-          <ListItemButton
-            sx={{
-              textAlign: "center",
-
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            <Link color="inherit" underline="none">
-              <ListItemText primary="About" />
-            </Link>
-            <Link color="inherit" underline="none" href="#footer">
-              <ListItemText primary="Contact" />
-            </Link>
-          </ListItemButton>
-        </ListItem>
-      </List>
+      <Grid container>
+        <Grid item xs={12}>
+          <Link color="inherit" underline="none" href="#header">
+            <IconButton>
+              <Logo />
+            </IconButton>
+          </Link>
+        </Grid>
+        <Grid item xs={12}>
+          <Divider sx={{ margin: "0 0 10px 0" }} />
+        </Grid>
+        <Grid item xs={12}>
+          {!loading && photoURL ? (
+            <Button
+              variant="text"
+              sx={{ color: "white" }}
+              onClick={handleSignOut}
+            >
+              <Typography
+                sx={{
+                  fontSize: "20px",
+                  fontWeight: "bold",
+                  textTransform: "none",
+                }}
+              >
+                SignOut
+              </Typography>
+            </Button>
+          ) : (
+            <Button
+              variant="text"
+              sx={{ color: "white" }}
+              onClick={handleSignIn}
+            >
+              <Typography
+                sx={{
+                  fontSize: "20px",
+                  fontWeight: "bold",
+                  textTransform: "none",
+                }}
+              >
+                SignIn
+              </Typography>
+            </Button>
+          )}
+        </Grid>
+        <Grid item xs={12}>
+          <About />
+        </Grid>
+        <Grid item xs={12}>
+          <Link color="inherit" underline="none" href="#footer">
+            <Button
+              sx={{
+                textTransform: "none",
+                color: "white",
+              }}
+            >
+              <Typography sx={{ fontSize: "20px", fontWeight: "bold" }}>
+                Contact
+              </Typography>
+            </Button>
+          </Link>
+        </Grid>
+      </Grid>
     </Box>
   );
 
@@ -118,17 +157,32 @@ const NavBar = (props) => {
       }}
     >
       <MenuItem onClick={handleClose}>
-        <ListItemIcon>
-          {!loading && photoURL ? (
-            <Logout fontSize="small" onClick={handleSignOut} />
-          ) : (
-            <LoginIcon fontSize="small" onClick={handleSignIn} />
-          )}
-        </ListItemIcon>
         {!loading && photoURL ? (
-          <Typography onClick={handleSignOut}>Logout</Typography>
+          <Button
+            variant="text"
+            sx={{ color: "white", textTransform: "none", fontWeight: "bold" }}
+            onClick={handleSignOut}
+          >
+            <Logout
+              sx={{ margin: "0 12px 0 0" }}
+              fontSize="small"
+              onClick={handleSignOut}
+            />
+            SignOut
+          </Button>
         ) : (
-          <Typography onClick={handleSignIn}>Login</Typography>
+          <Button
+            variant="text"
+            sx={{ color: "white", textTransform: "none", fontWeight: "bold" }}
+            onClick={handleSignIn}
+          >
+            <LoginIcon
+              sx={{ margin: "0 12px 0 0" }}
+              fontSize="small"
+              onClick={handleSignIn}
+            />
+            SignIn
+          </Button>
         )}
       </MenuItem>
     </Menu>
@@ -138,7 +192,7 @@ const NavBar = (props) => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed" component="nav">
         <Toolbar>
-          <Grid item xs={12} sm={12} container nowrap>
+          <Grid item xs={12} sm={12} container>
             <Grid
               item
               xs={2}
@@ -160,9 +214,11 @@ const NavBar = (props) => {
                 alignItems: "center",
               }}
             >
-              <IconButton>
-                <Logo />
-              </IconButton>
+              <Link color="inherit" underline="none" href="#header">
+                <IconButton>
+                  <Logo />
+                </IconButton>
+              </Link>
             </Grid>
             <Grid
               item
@@ -175,17 +231,46 @@ const NavBar = (props) => {
                 gap: "0 20px",
               }}
             >
-              <Link color="inherit" underline="none">
-                <Typography
-                  sx={{
-                    display: { xs: "none", sm: "block" },
-                    fontSize: "20px",
-                    fontWeight: "bold",
-                  }}
+              {!loading && photoURL ? (
+                <Button
+                  variant="text"
+                  sx={{ color: "white", display: { xs: "none", sm: "block" } }}
+                  onClick={handleSignOut}
                 >
-                  About
-                </Typography>
-              </Link>
+                  <Typography
+                    sx={{
+                      fontSize: "20px",
+                      fontWeight: "bold",
+                      textTransform: "none",
+                    }}
+                  >
+                    SignOut
+                  </Typography>
+                </Button>
+              ) : (
+                <Button
+                  variant="text"
+                  sx={{ color: "white", display: { xs: "none", sm: "block" } }}
+                  onClick={handleSignIn}
+                >
+                  <Typography
+                    sx={{
+                      fontSize: "20px",
+                      fontWeight: "bold",
+                      textTransform: "none",
+                    }}
+                  >
+                    SignIn
+                  </Typography>
+                </Button>
+              )}
+              <Box
+                sx={{
+                  display: { xs: "none", sm: "block" },
+                }}
+              >
+                <About />
+              </Box>
               <Link color="inherit" href="#footer" underline="none">
                 <Typography
                   sx={{

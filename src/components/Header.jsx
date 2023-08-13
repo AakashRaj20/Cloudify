@@ -30,18 +30,18 @@ const Header = () => {
         setUserDisplayName(user.displayName || "");
         setLoading(false);
       }else {
-        setUserDisplayName(""); // Clear the display name
+        setUserDisplayName(""); 
         setLoading(false);
       }
     });
 
     return () => {
-      unsubscribe(); // Cleanup the listener when the component unmounts
+      unsubscribe(); 
     };
   }, []);
 
   return (
-    <Grid item xs={12} sm={12} container padding="0 0 0 6px ">
+    <Grid id="header" item xs={12} sm={12} container padding="0 0 0 6px ">
       <Grid item xs={12} sm={12} sx={{ display: {xs: 'block', sm: 'flex'}, alignItems: {sm: 'baseline'}, gap: {sm : '0 12px'}}}>
         <Typography sx={{ fontSize: "32px", fontWeight: "bold" }}>
           {greeting()}

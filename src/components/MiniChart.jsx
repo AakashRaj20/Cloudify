@@ -5,7 +5,7 @@ import { fetchAirQualityData } from "../slice/airQualitySlice";
 import { airQualityData } from "../slice/airQualitySlice";
 import { cityData } from "../slice/inputSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography, Skeleton } from "@mui/material";
 
 const MiniChart = () => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const MiniChart = () => {
     selectedCity &&
       dispatch(
         fetchAirQualityData({
-         city: selectedCity?.location?.name,
+          city: selectedCity?.location?.name,
         })
       );
   }, [selectedCity, dispatch]);
@@ -152,11 +152,8 @@ const MiniChart = () => {
       }}
     >
       <ReactSpeedometer
-        // width={width}
-        // height={height}
         width={Math.min(500, parentWidth - 30)}
         forceRender={true}
-        //fluidWidth={true}
         value={value}
         segments={segmentCount}
         minValue={0}
@@ -210,7 +207,6 @@ const MiniChart = () => {
             }}
           >
             <Box sx={{ maxWidth: "500px", width: "100%" }}>{chart}</Box>
-            {/* {chart} */}
           </Grid>
         </Grid>
       </Box>
