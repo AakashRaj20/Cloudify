@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const API_KEY = process.env.REACT_APP_INPUT_SLICE;
+
 export const fetchCityData = createAsyncThunk(
   "content/fetchContent",
   async ({ city }) => {
@@ -12,7 +14,7 @@ export const fetchCityData = createAsyncThunk(
         days: "3",
       },
       headers: {
-        "X-RapidAPI-Key": process.env.REACT_APP_INPUT_SLICE,
+        "X-RapidAPI-Key": API_KEY,
         "X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com",
       },
     };

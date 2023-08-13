@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const API_KEY = process.env.REACT_APP_CHART_SLICE;
+
 export const fetchChartData = createAsyncThunk(
   "content/fetchChartData",
   async ({ id }) => {
@@ -15,7 +17,7 @@ export const fetchChartData = createAsyncThunk(
         dataset: "full",
       },
       headers: {
-        "X-RapidAPI-Key": process.env.REACT_APP_CHART_SLICE,
+        "X-RapidAPI-Key": API_KEY,
         "X-RapidAPI-Host": "foreca-weather.p.rapidapi.com",
       },
     };
@@ -38,7 +40,7 @@ export const fetchCityId = createAsyncThunk(
         lang: "en",
       },
       headers: {
-        "X-RapidAPI-Key": process.env.REACT_APP_CHART_SLICE,
+        "X-RapidAPI-Key": API_KEY,
         "X-RapidAPI-Host": "foreca-weather.p.rapidapi.com",
       },
     };

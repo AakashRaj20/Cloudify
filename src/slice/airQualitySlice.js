@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const API_KEY = process.env.REACT_APP_AIR_QUALITY_SLICE;
+
 export const fetchAirQualityData = createAsyncThunk("content/fetchAirQualityData", async({city}) => {
 
 const options = {
@@ -8,7 +10,7 @@ const options = {
   url: "https://air-quality-by-api-ninjas.p.rapidapi.com/v1/airquality",
   params: { city: city },
   headers: {
-    "X-RapidAPI-Key": process.env.REACT_APP_AIR_QUALITY_SLICE,
+    "X-RapidAPI-Key": API_KEY,
     "X-RapidAPI-Host": "air-quality-by-api-ninjas.p.rapidapi.com",
   },
 };
