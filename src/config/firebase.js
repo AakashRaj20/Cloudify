@@ -3,7 +3,7 @@ import {getAuth, GoogleAuthProvider} from "firebase/auth"
 import { getFirestore } from "firebase/firestore"
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAblkAy3m7W9CykCVKoBZ5UjUztcbCP4eY",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: "cloudsify-59854.firebaseapp.com",
   projectId: "cloudsify-59854",
   storageBucket: "cloudsify-59854.appspot.com",
