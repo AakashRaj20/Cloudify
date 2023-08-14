@@ -116,12 +116,9 @@ const AddedCities = () => {
   }, [dispatch]);
 
   const deleteCityFromDb = async (id) => {
-    console.log(id);
     try {
       const cityDoc = doc(db, "users", auth.currentUser.uid, "AddCities", id);
       await deleteDoc(cityDoc);
-      //setDbData((prevData) => prevData.filter((city) => city.id !== id));
-      console.log("called");
     } catch (error) {
       console.error(error);
     }

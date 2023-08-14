@@ -1,8 +1,25 @@
-import React from "react";
+import {useState, useEffect} from "react";
 import DialougeBox from "./DialougeBox";
 import { Grid, Box, Typography } from "@mui/material";
+import { auth } from "../config/firebase";
 
 const AddCities = () => {
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setLoading(false);
+      } else {
+        setLoading(true);
+      }
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
   const cities = (
     <Box
       sx={{
@@ -20,6 +37,7 @@ const AddCities = () => {
     >
       <DialougeBox />
       <Typography>World Forecast</Typography>
+      {loading && <Typography>SignUp/SignIn To</Typography>}
       <Typography>Add the cities you are interested in.</Typography>
     </Box>
   );

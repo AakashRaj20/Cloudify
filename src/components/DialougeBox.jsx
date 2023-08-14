@@ -9,6 +9,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Typography,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { fetchAddCity } from "../slice/addCitySlice";
@@ -28,7 +29,7 @@ const DialougeBox = () => {
   const [loading, setLoading] = useState(true);
   const [userId, setUserId] = useState("");
   const [dbCollectionRef, setDbCollectionRef] = useState(null);
-  
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -45,42 +46,41 @@ const DialougeBox = () => {
       unsubscribe();
     };
   }, []);
- useEffect(() => {
-   if (addedCity && dbCollectionRef) {
-     const addCityToDb = async () => {
-       try {
-         const cityData = {
-           icon: addedCity.current.condition.icon,
-           name: addedCity.location.name,
-           country: addedCity.location.country,
-           temp: addedCity.current.temp_c,
-           text: addedCity.current.condition.text,
-         };
+  useEffect(() => {
+    if (addedCity && dbCollectionRef) {
+      const addCityToDb = async () => {
+        try {
+          const cityData = {
+            icon: addedCity.current.condition.icon,
+            name: addedCity.location.name,
+            country: addedCity.location.country,
+            temp: addedCity.current.temp_c,
+            text: addedCity.current.condition.text,
+          };
 
-         const existingCityQuery = query(
-           dbCollectionRef,
-           where("name", "==", cityData.name)
-         );
+          const existingCityQuery = query(
+            dbCollectionRef,
+            where("name", "==", cityData.name)
+          );
 
-         const existingCityDocs = await getDocs(existingCityQuery);
+          const existingCityDocs = await getDocs(existingCityQuery);
 
-         if (existingCityDocs.size === 0) {
-           await addDoc(dbCollectionRef, cityData);
-         }
-       } catch (error) {
-         console.error(error);
-       }
-     };
+          if (existingCityDocs.size === 0) {
+            await addDoc(dbCollectionRef, cityData);
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      };
 
-     addCityToDb();
-   }
- }, [addedCity, dbCollectionRef]);
-  
-  
+      addCityToDb();
+    }
+  }, [addedCity, dbCollectionRef]);
+
   const handleClickOpen = () => {
-    if(!userId){
+    if (!userId) {
       signInWithPopup(auth, googleAuthProvider);
-    }else {
+    } else {
       setOpen(true);
     }
   };
@@ -117,7 +117,7 @@ const DialougeBox = () => {
         <DialogTitle>World Forecast</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Add the city you are interested in.
+            <Typography>Add the city you are interested in.</Typography>
           </DialogContentText>
           <TextField
             autoFocus

@@ -75,7 +75,10 @@ const NavBar = (props) => {
   }, []);
 
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
+    <Box
+      onClick={handleDrawerToggle}
+      sx={{ textAlign: "center" }}
+    >
       <Grid container>
         <Grid item xs={12}>
           <Link color="inherit" underline="none" href="#header">
@@ -122,7 +125,7 @@ const NavBar = (props) => {
             </Button>
           )}
         </Grid>
-        <Grid item xs={12} sx={{ justifyContent: 'center', display: 'flex' }}>
+        <Grid item xs={12} sx={{ justifyContent: "center", display: "flex" }}>
           <About />
         </Grid>
         <Grid item xs={12}>
