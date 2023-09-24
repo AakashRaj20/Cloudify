@@ -8,23 +8,23 @@
       "type": "image/x-icon"
     },
     {
-      "src": "assets/cloudsify_512.png",
+      "src": "assets/cloudsify_icon.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "assets/cloudsify_512.png",
+      "src": "assets/cloudsify_icon.png",
       "type": "image/png",
       "sizes": "512x512"
     },
     {
-      "src": "assets/cloudsify_512.png",
+      "src": "assets/cloudsify_icon.png",
       "type": "image/png",
       "sizes": "192x192",
       "purpose": "maskable"
     },
     {
-      "src": "assets/cloudsify_512.png",
+      "src": "assets/cloudsify_icon.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "maskable"
