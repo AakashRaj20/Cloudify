@@ -20,13 +20,7 @@
     {
       "src": "assets/cloudsify_icon.png",
       "type": "image/png",
-      "sizes": "192x192",
-      "purpose": "maskable"
-    },
-    {
-      "src": "assets/cloudsify_icon.png",
-      "type": "image/png",
-      "sizes": "512x512",
+      "sizes": "96x96",
       "purpose": "maskable"
     }
   ],
